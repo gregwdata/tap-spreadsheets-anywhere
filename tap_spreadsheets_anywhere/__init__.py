@@ -45,7 +45,7 @@ def discover(config):
     for table_spec in config['tables']:
         try:
             modified_since = dateutil.parser.parse(table_spec['start_date'])
-            target_files = file_utils.get_matching_objects(table_spec, modified_since)
+            target_files, table_spec['path'] = file_utils.get_matching_objects(table_spec, modified_since)
             sample_rate = table_spec.get('sample_rate',10)
             max_sampling_read = table_spec.get('max_sampling_read', 1000)
             max_sampled_files = table_spec.get('max_sampled_files', 5)

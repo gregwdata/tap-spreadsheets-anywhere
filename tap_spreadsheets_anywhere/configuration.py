@@ -31,6 +31,16 @@ CONFIG_CONTRACT = Schema({
                 Required('type'): Any(Any('null','string','integer','number','date-time'),
                                       [Any('null','string','integer','number','date-time')])
             }
+        },
+        Optional('sharepoint_credentials'): {
+            Required('tenant_name'): str,
+            Required('client_id'): str,
+            Required('client_secret'): str,
+            Required('grant_type'): str,
+            Required('scope'): str,
+            Required('site_name'): str,
+            Required('document_library'): str,
+            Required('file_name'): str
         }
     }]
 })

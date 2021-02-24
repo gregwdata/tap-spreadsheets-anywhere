@@ -15,7 +15,8 @@ setup(
         'voluptuous>=0.10.5',
         'boto3>=1.15.5',
         'google-cloud-storage>=1.31.2',
-        'xlrd',
+        'xlrd==1.2.0',
+        'tqdm==4.57.0'
     ],
     entry_points="""
     [console_scripts]

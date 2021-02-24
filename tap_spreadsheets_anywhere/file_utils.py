@@ -13,6 +13,8 @@ import tap_spreadsheets_anywhere.format_handler
 import tap_spreadsheets_anywhere.conversion as conversion
 import smart_open.ssh as ssh_transport
 from dateutil.parser import parse as parsedate
+from tap_spreadsheets_anywhere.client import SharePointClient
+import tqdm
 
 LOGGER = logging.getLogger(__name__)
 
@@ -115,6 +117,11 @@ def get_matching_objects(table_spec, modified_since=None):
         target_objects = list_files_in_gs_bucket(bucket,table_spec.get('search_prefix'))
     elif protocol in ["http", "https"]:
         target_objects = convert_URL_to_file_list(table_spec)
+    elif protocol == 'sharepoint':
+        # download files
+        if download_files_from_sharepoint(bucket, table_spec['sharepoint_credentials']):
+            target_objects = list_files_in_local_bucket(bucket, table_spec.get('search_prefix'))
+            table_spec['path'] = 'file://' + bucket # change sharepoint protocol to file
     else:
         raise ValueError("Protocol {} not yet supported. Pull Requests are welcome!")
 
@@ -135,7 +142,7 @@ def get_matching_objects(table_spec, modified_since=None):
         else:
             LOGGER.debug('Not including key "{}"'.format(key))
 
-    return sorted(to_return, key=lambda item: item['last_modified'])
+    return sorted(to_return, key=lambda item: item['last_modified']), table_spec['path']
 
 
 def list_files_in_SSH_bucket(uri, search_prefix=None):
@@ -316,3 +323,62 @@ def config_by_crawl(crawl_config):
                 LOGGER.debug(f"Skipping config for {file['key']} because it looks like a folder not a file")
         config['tables'] += entries.values()
         return config
+
+def get_abs_path(path):
+    return os.path.join(os.path.dirname(os.path.realpath(__file__)), path)
+
+def download_file(url, filename=False, verbose=False):
+    """ Download file with progressbar """
+    local_filename = get_abs_path(filename)
+    success = False
+    while not success:
+        try:
+            r = requests.get(url, stream=True)
+            if r.status_code != 200:
+                success = False
+                LOGGER.info("Response status code is not 200 while downloading the file, trying again")
+            else:
+                success = True
+        except:
+            success = False
+            LOGGER.info("Exception has occured while downloading the file, trying again")
+
+    if r.status_code == 200:
+        file_size = int(r.headers['Content-Length'])
+        chunk = 1
+        chunk_size = 1024
+        num_bars = int(file_size / chunk_size)
+        if verbose:
+            LOGGER.info(dict(file_size=file_size))
+            LOGGER.info(dict(num_bars=num_bars))
+
+        with open(local_filename, 'wb') as fp:
+            for chunk in tqdm.tqdm(
+                    r.iter_content(chunk_size=chunk_size)
+                    , total=num_bars
+                    , unit='KB'
+                    , desc=local_filename
+                    , leave=True  # progressbar stays
+            ):
+                fp.write(chunk)
+        return True
+    return False
+
+
+def download_files_from_sharepoint(bucket, sharepoint_credentials):
+    # "path": "sharepoint://client_id:client_secret@tenant_name//site_name/document_library",
+    with SharePointClient(sharepoint_credentials) as client:
+        site_name = sharepoint_credentials['site_name']
+        document_library = sharepoint_credentials['document_library']
+        file_name = sharepoint_credentials['file_name']
+        site_id = client.get_site_id(site_name)
+        drive_id = client.get_drive_id(site_id, document_library)
+        drive_download_url = client.get_drive_download_url(site_id, drive_id, file_name)
+
+        filePath = bucket + '/' + file_name
+        if drive_download_url:
+            download_file(drive_download_url, filename=filePath)
+            LOGGER.info("'{}' file is downloaded from '{}' site and '{}' document library into '{}'".format(file_name, site_name, document_library, filePath))
+            return True
+        else:
+            return False
