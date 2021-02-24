@@ -107,7 +107,7 @@ def sync(config, state, catalog):
             )
             modified_since = dateutil.parser.parse(
                 state.get(stream.tap_stream_id, {}).get('modified_since') or table_spec['start_date'])
-            target_files = file_utils.get_matching_objects(table_spec, modified_since)
+            target_files, table_spec['path'] = file_utils.get_matching_objects(table_spec, modified_since)
             max_records_per_run = table_spec.get('max_records_per_run', -1)
             records_streamed = 0
             for t_file in target_files:
