@@ -1,0 +1,126 @@
+﻿BLDGID,BLDGNAME,ENTITYID,Managed By,Operating Status,Asset Type,COMMENTS
+1819WZ,1819 PROPERTY OWNER LLC       ,1819WZ,DO NOT USE,DO NOT USE,DO NOT USE,DO NOT USE
+60FRST,NW Cambridge Holdings         ,60FRST,3rd Party (Anchorline Partners) ,Under Development,Retail,Sears Portfolio (still thinking of redevelopment)
+BLK001,Blakeney Retail               ,BLK001,NWRetail,Stabilized,Retail,
+BVEAST,BEAR VALLEY EAST              ,BVEAST,BVK,DO NOT USE,Retail,They own majority of the asset. JV. We track 
+BVWEST,BEAR VALLEY WEST              ,BVWEST,BVK,DO NOT USE,Retail,They own majority of the asset. JV
+CRS001,Blakeney Crossing             ,CRS001,NWRetail,Stabilized,Retail,
+CRY001,Carraway Village-NR Edge Prop ,CRY001,SOLD,Realized,,SOLD
+CV0001,100 Broadway                  ,CV0001,3rd Party (Craven),Stabilized,Office,They just transfered from Yardi to MRI (June)
+CV0002,1180 Avenue of the Americas   ,CV0002,3th Party (Craven),Lease-Up,Office,They just transfered from Yardi to MRI (June)
+DMN001,Domain Northside Retail       ,DMN001,NWRetail,Stabilized,Retail,"51%  (NWI, INVESCO)"
+DMN002,Domain Northside Office       ,DMN002,NWRetail,Stabilized,Office,"51%  (NWI, INVESCO)"
+DMN011,The Domain Bldg 1 CA Inc      ,DMN011,NWRetail,Development,N/A,100%  NWI
+DMN012,Domain Retail D1 Blk Z CA Inc ,DMN012,NWRetail,Development,Office,100%  NWI
+DMN013,Domain Retail D1 Blk W CA Inc ,DMN013,NWRetail,Development,N/A,100%  NWI
+DMN014,Domain Retail D Blk D PGCA Inc,DMN014,NWRetail,Development,N/A,100%  NWI
+DMN015,Domain Retail D1 Blk C CA Inc ,DMN015,NWRetail,Development,Office,100%  NWI
+DNY001,Downey Promenade              ,DNY001,BVK - SOLD,Realized,Retail,BVK no Asset Plans/FMV/Monthly reporting
+FFV001,Freshfields Village           ,FFV001,NWRetail,Stabilized,Retail,
+ffv002,NW BBT LLC                    ,FFV002,NWRetail,Land/Pre-Development,Land,May not have revenue. 
+FFV003,Freshfields Village Expansion ,FFV001,NWRetail,Stabilized,Retail,
+HSV001,Hillside Village              ,HSV001,NWRetail,Stabilized,Retail,
+HSVLLP,Hillside Leasehold            ,HSVLLP,NWRetail,Stabilized,Retail,
+LAT001,Latta Arcade                  ,LAT001,SOLD,Realized,,SOLD
+NRG001,NW Northgate Mall LLC         ,NRG001,NWRetail,Development,Retail under development,Sears Portfolio (still thinking of redevelopment)
+NRG002,Northgate Shops               ,NRG002,NWRetail,Development,Retail under development,Sears Portfolio (still thinking of redevelopment)
+NRG003,Northgate Planters Oil        ,NRG003,NWRetail,Development,Retail under development,Sears Portfolio (still thinking of redevelopment)
+NW0021,NW OFFICES ON SIX LP          ,NW0021,NWOffice,Stabilized,Office,Ballantyne
+NW0028,NW 13820 BCP LP               ,NW0028,NWOffice,Stabilized,Office,Ballantyne
+NW0031,NW MEDICAL TWO LP             ,NW0031,NWOffice,Stabilized,Office,Ballantyne
+NW0037,NW WINSLOW BUILDING LP        ,NW0037,NWOffice,Stabilized,Office,Ballantyne
+NW0045,NW GIBSON BUILDING LP         ,NW0045,NWOffice,Stabilized,Office,Ballantyne
+NW0051,NW BETSILL BUILDING LP        ,NW0051,NWOffice,Stabilized,Office,Ballantyne
+NW0054,NW CRAWFORD BUILDING LP       ,NW0054,NWOffice,Stabilized,Office,Ballantyne
+NW0065,NW RUSHMORE FIVE LP           ,NW0065,NWOffice,Stabilized,Office,Ballantyne
+NW0071,NW IRBY BUILDING LP           ,NW0071,NWOffice,Stabilized,Office,Ballantyne
+NW0072,NW HAYES BUILDING LP          ,NW0072,NWOffice,Stabilized,Office,Ballantyne
+NW0073,NW JJH BUILDING LP            ,NW0073,NWOffice,Stabilized,Office,Ballantyne
+NW0074,NW BOYLE BUILDING LP          ,NW0074,NWOffice,Stabilized,Office,Ballantyne
+NW0075,NW EVERETT BUILDING LP        ,NW0075,NWOffice,Stabilized,Office,Ballantyne
+NW0076,NW CALHOUN BUILDING LP        ,NW0076,NWOffice,Stabilized,Office,Ballantyne
+NW0077,NW BRIGHAM BUILDING LP        ,NW0077,NWOffice,Stabilized,Office,Ballantyne
+NW0078,NW 7C                         ,NW0078,NWOffice,Development,Land under development,Ballantyne
+NW0079,NW BRIGHAM RETAIL             ,NW0079,NWOffice,Stabilized,Retail,Ballantyne
+NW0081,NW BCP LAND LP                ,NW0081,NWOffice,Development,Land under development,Ballantyne
+NW0105,NW GRAGG BUILDING LP          ,NW0105,NWOffice,Stabilized,Office,Ballantyne
+NW0106,NW WOODWARD BUILDING LP       ,NW0106,NWOffice,Stabilized,Office,Ballantyne
+NW1001,NW BRIXHAM GREEN ONE LP       ,NW1001,NWOffice,Stabilized,Office,Ballantyne
+NW1002,NW BRIXHAM GREEN TWO LP       ,NW1002,NWOffice,Stabilized,Office,Ballantyne
+NW1003,NW BRIXHAM GREEN THREE LP     ,NW1003,NWOffice,Stabilized,Office,Ballantyne
+NW1011,NW BALLANTYNE ONE LP          ,NW1011,NWOffice,Stabilized,Office,Ballantyne
+NW1012,NW BALLANTYNE TWO LP          ,NW1012,NWOffice,Stabilized,Office,Ballantyne
+NW1013,NW RUSHMORE ONE LP            ,NW1013,NWOffice,Stabilized,Office,Ballantyne
+NW1015,NW RUSHMORE FOUR LP           ,NW1015,NWOffice,Stabilized,Office,Ballantyne
+NW1016,NW RUSHMORE THREE LP          ,NW1016,NWOffice,Stabilized,Office,Ballantyne
+NW1017,NW CULLMAN PARK LP            ,NW1017,NWOffice,Stabilized,Office,Ballantyne
+NW1018,NW RICHARDSON BUILDING LP     ,NW1018,NWOffice,Stabilized,Office,Ballantyne
+NW1022,NW BALLANTYNE THREE LP        ,NW1022,NWOffice,Stabilized,Office,Ballantyne
+NW1024,NW RUSHMORE TWO LP            ,NW1024,NWOffice,Stabilized,Office,Ballantyne
+NW1025,NW HALL BUILDING LP           ,NW1025,NWOffice,Stabilized,Office,Ballantyne
+NW1026,NW FRENETTE BUILDING LP       ,NW1026,NWOffice,Stabilized,Office,Ballantyne
+NW1035,NW TATE BUILDING LP           ,NW1035,NWOffice,Stabilized,Office,Ballantyne
+NW1040,NW CHANDLER BUILDING LP       ,NW1040,NWOffice,Stabilized,Office,Ballantyne
+NW1041,NW SIMMONS BUILDING LP        ,NW1041,NWOffice,Stabilized,Office,Ballantyne
+NW1042,NW HIXON BUILDING LP          ,NW1042,NWOffice,Stabilized,Office,Ballantyne
+NW1500,US VI CP Property LLC         ,NW1500,BVK,DO NOT USE,Office,BVK no Asset Plans/FMV/Monthly reporting
+NW1501,US VI CP GARAGE LLC           ,NW1501,BVK,DO NOT USE,Office,BVK no Asset Plans/FMV/Monthly reporting
+NW1502,US VI TOWER POINT LLC         ,NW1502,BVK,DO NOT USE,Office,BVK no Asset Plans/FMV/Monthly reporting
+NW1503,NW 230 Congress Street Propert,NW1503,NWOffice,Stabilized,Office,
+NW1504,NW 123 Mission Street LLC     ,NW1504,SOLD,Realized,,SOLD
+NW1505,NW Duluth LLC                 ,NW1505,NWOffice,Development,Retail under development,Sears Portfolio (still thinking of redevelopment)
+NW1506,NW Gaithersburg LLC           ,NW1506,NWOffice,Development,Retail under development,Sears Portfolio (still thinking of redevelopment)
+NW1507,NW Northgate II LLC           ,NW1507,NWRetail,Development,Retail under development,Sears Portfolio (still thinking of redevelopment)
+NW1508,149-151 Pearl Street Owner LLC,NW1508,NWOffice,Stabilized,Office,
+NW1509,US VI PEACHTREE LLC           ,NW1509,BVK,DO NOT USE,,BVK no Asset Plans/FMV/Monthly reporting
+NW1510,Van Alen Office LLC           ,NW1510,NWOffice,Lease-Up,Office,
+NW1511,US VI 2 Brickell LLC          ,NW1511,BVK,DO NOT USE,Office,BVK no Asset Plans/FMV/Monthly reporting
+NW1512,US VI 3 Brickell LLC          ,NW1512,BVK,DO NOT USE,Office,BVK no Asset Plans/FMV/Monthly reporting
+NW1513,900 CP Owner LLC              ,NW1513,NWOffice,DO NOT USE,Office,Unknown - Recently Purchased
+NWCCR1,NW CCR BUILDING LP            ,NWCCR1,NWOffice,Stabilized,Retail,Ballantyne
+NWCCR2,NW CCR BUILDING 2 LP          ,NWCCR2,NWOffice,Stabilized,Retail,Ballantyne
+NWCENT,NW CENTENNIAL LLC             ,NWCENT,NWRetail,Development,Retail under development,Sears Portfolio (still thinking of redevelopment)
+NWR003,"Austin Village Retail, LLC    ",NWR003,SOLD,Realized,Retail,SOLD
+NWR004,"Mira Bay, LLC                 ",NWR004,SOLD,Realized,,SOLD
+NWSPRI,NW SPRINGS LLC                ,NWSPRI,NWRetail,Development,Retail under development,Sears Portfolio (still thinking of redevelopment)
+P100  ,NWALP PHOP Property Owner LLC ,P100  ,Anchorline Partners (3rd party Accounting in MRI) ,Stabilized,Office,CBRE does the accounting
+P200  ,NWALP PHOP Property Owner LLC ,P200  ,Anchorline Partners (3rd party Accounting in MRI) ,Stabilized,Office,CBRE does the accounting
+P300  ,NWALP PHOP Property Owner LLC ,P300  ,Anchorline Partners (3rd party Accounting in MRI) ,Stabilized,Office,CBRE does the accounting
+P400  ,400 Totten PondRoad           ,P400  ,Anchorline Partners (3rd party Accounting in MRI) ,Stabilized,Office,CBRE does the accounting
+P410  ,410 Totten Pond               ,P410  ,Anchorline Partners (3rd party Accounting in MRI) ,Stabilized,Office,CBRE does the accounting
+P460  ,460 Totten Pond               ,P460  ,Anchorline Partners (3rd party Accounting in MRI) ,Land/Pre-Development,Office,CBRE does the accounting
+PKLN01,Park Lane - 8070 Office       ,PKLN01,NWRetail,Stabilized,Office,
+PKLN02,Park Lane - 8080 Office       ,PKLN02,NWRetail,Stabilized,Office,
+PKLN03,Park Lane - 8080 Culinary Off ,PKLN03,NWRetail,Stabilized,Office,
+PKLN04,Park Lane - 8176 Office       ,PKLN04,NWRetail,Stabilized,Office,
+PKLN05,Park Lane - Blk B2/C/DF Retail,PKLN05,NWRetail,Stabilized,Retail,
+PKLN06,Park Lane - Blk E Retail      ,PKLN06,NWRetail,Stabilized,Retail,
+PKLN07,Park Lane - Blk A Retail      ,PKLN07,NWRetail,Stabilized,Retail,
+PKLN08,Northwood PL G LP             ,PKLN08,NWRetail,Stabilized,N/A - Apartments,
+PKLN09,Park Lane - Blk A Office      ,PKLN09,NWRetail,Stabilized,Office,
+PKLNDA,Block A Development           ,PKLNDA,NWRetail,Land/Pre-Development,Land under development,
+PKLNDE,Block E Development           ,PKLNDE,NWRetail,Land/Pre-Development,Land under development,
+PKLNDG,Block G Development           ,PKLNDG,NWRetail,Land/Pre-Development,Land under development,
+POST  ,POST @ 200 Smith Street       ,POST  ,SOLD,Realized,,SOLD
+PWP001,Prestonwood Place             ,PWP001,NWRetail,Stabilized,Retail,
+SLND01,Southlands Town Center Office ,SLND01,DOLD,Realized,Office,SOLD
+SLND02,Southlands Town Center Retail ,SLND02,DOLD,Realized,Retail,SOLD
+SLND03,Southlands Power Center       ,SLND03,DOLD,Realized,,SOLD
+SLND05,NWSL Developer Parcel LLC     ,SLND05,DOLD,Realized,,SOLD
+SLND06,NWSL Outparcel LLC            ,SLND06,DOLD,Realized,,SOLD
+WAVE01,Waverly Place                 ,WAVE01,NWRetail,Stabilized,Retail,
+,,,,,,
+,,,,,,
+,Missing MRI Assets,,,,,
+,1515 West 14th St,,Wentworth ,Lease-Up,Office,Yardi
+,DBC (Discover Business Campus),,Wentworth ,Stabilized,Office,Yardi
+,Scottsdale Landing,,Wentworth ,Stabilized,Office,Yardi
+,2041 Colorado,,Lincoln Property Company,Stabilized,Office,Manual (ancient)
+,Carolina Square ,,CBRE,Stabilized,Office/Retail,Stabilized 
+,Northside at McEwen,,Boyle,Lease-Up,Office/Retail,Under Construction (Yardi)
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,Not in ENTITY_INVESTMENT Table provided by Steve.,FFV003 NWR003 LAT001 DNY001 NWR004 NW1500 BVEAST NW1504 NW1502 POST BVWEST,,,,

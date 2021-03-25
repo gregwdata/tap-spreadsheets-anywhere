@@ -1,6 +1,8 @@
 import requests
 import singer
 from datetime import datetime
+import tqdm
+import os
 
 LOGGER = singer.get_logger()
 
@@ -57,8 +59,8 @@ class SharePointClient:
         self.tenant_name = config['tenant_name']
         self.client_id = config['client_id']
         self.client_secret = config['client_secret']
-        self.grant_type = config['grant_type']
-        self.scope = config['scope']
+        self.grant_type = "client_credentials"
+        self.scope = "https://graph.microsoft.com/.default"
 
         self.token_url = "https://login.microsoftonline.com/{}/oauth2/v2.0/token".format(self.tenant_name)
         self.token_data = {
@@ -95,6 +97,7 @@ class SharePointClient:
 
     def get_site_id(self, siteName):
         url = self.base_url + "/sites"
+        values = []
         success = False
         while not success:
             try:
@@ -108,12 +111,19 @@ class SharePointClient:
                     self.renew_access_token()
                     # raise_for_error(response)
                 else:
-                    success = True
-                    values = response.json()["value"]
-                    for value in values:
-                        if siteName == value["name"]:
-                            return value["id"]
-                    raise Exception("Coundn't find specified '{}' site in sharepoint".format(siteName))
+                    data = response.json()
+                    if "@odata.nextLink" in data:
+                        url = data["@odata.nextLink"]
+                        success = False
+                        values = values + data["value"]
+                    else:
+                        success = True
+                        values = values + data["value"]
+        for value in values:
+            if "name" in value:
+                if siteName == value["name"]:
+                    return value["id"]
+        raise Exception("Coundn't find specified '{}' site in sharepoint".format(siteName))
 
     def get_drive_id(self, siteId, documentLibrary):
         url = self.base_url + "/sites/" + siteId + "/drives"
@@ -136,6 +146,37 @@ class SharePointClient:
                         if documentLibrary == value["name"]:
                             return value["id"]
                     raise Exception("Coundn't find specified '{}' documentLibrary in sharepoint for site '{}'".format(documentLibrary, siteId))
+
+    def get_drive_download_url_by_path(self, driveId, itemPath, lastUpdatedDate=False):
+        url = self.base_url + "/drives/" + driveId + "/root:/{}".format(itemPath)
+        success = False
+        while not success:
+            try:
+                response = self.session.get(url, headers=self.headers)
+            except:
+                LOGGER.error('Connection Error. Trying to reconnect.')
+                self.renew_access_token()
+            else:
+                if response.status_code != 200:
+                    LOGGER.error("Error status_code = {}. Coundn't find '{}' file in sharepoint or another error. Trying to renew access token.".format(response.status_code, itemPath))
+                    self.renew_access_token()
+                    # raise_for_error(response)
+                else:
+                    success = True
+                    fileExist = False
+                    data = response.json()
+                    if "@microsoft.graph.downloadUrl" in data:
+                        fileExist = True
+                        if lastUpdatedDate:
+                            if lastUpdatedDate < datetime.strptime(data["lastModifiedDateTime"], "%Y-%m-%dT%H:%M:%SZ"):
+                                driveDownloadUrl = data["@microsoft.graph.downloadUrl"]
+                                return driveDownloadUrl
+                        else:
+                            driveDownloadUrl = data["@microsoft.graph.downloadUrl"]
+                            return driveDownloadUrl
+                    if not fileExist:
+                        raise Exception("Coundn't find '{}' file in sharepoint".format(itemPath))
+                    return False
 
     def get_drive_download_url(self, siteId, driveId, fileName, lastUpdatedDate=False):
         url = self.base_url + "/sites/" + siteId + "/drives/" + driveId + "/root/children"
@@ -169,3 +210,43 @@ class SharePointClient:
                         raise Exception(
                             "Coundn't find specified '{}' file for drive {} of site '{}' in sharepoint".format(fileName, driveId, siteId))
                     return False
+
+    def get_abs_path(self, path):
+        return os.path.join(os.path.dirname(os.path.realpath(__file__)), path)
+
+    def download_file(self, url, filename=False, verbose=False):
+        """ Download file with progressbar """
+        local_filename = self.get_abs_path(filename)
+        success = False
+        while not success:
+            try:
+                r = self.session.get(url, stream=True)
+                if r.status_code != 200:
+                    success = False
+                    LOGGER.info("Response status code is not 200 while downloading the file, trying again")
+                else:
+                    success = True
+            except:
+                success = False
+                LOGGER.info("Exception has occured while downloading the file, trying again")
+
+        if r.status_code == 200:
+            file_size = int(r.headers['Content-Length'])
+            chunk = 1
+            chunk_size = 1024
+            num_bars = int(file_size / chunk_size)
+            if verbose:
+                LOGGER.info(dict(file_size=file_size))
+                LOGGER.info(dict(num_bars=num_bars))
+
+            with open(local_filename, 'wb') as fp:
+                for chunk in tqdm.tqdm(
+                        r.iter_content(chunk_size=chunk_size)
+                        , total=num_bars
+                        , unit='KB'
+                        , desc=local_filename
+                        , leave=True  # progressbar stays
+                ):
+                    fp.write(chunk)
+            return True
+        return False

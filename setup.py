@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name="tap-spreadsheets-anywhere",
@@ -22,6 +22,10 @@ setup(
     [console_scripts]
     tap-spreadsheets-anywhere=tap_spreadsheets_anywhere:main
     """,
-    packages=["tap_spreadsheets_anywhere"],
-    include_package_data=True,
+    packages=find_packages(),
+    package_data={
+        'tap_spreadsheets_anywhere': [
+            'files/xlsx/*.xlsm', 'files/xlsx/*.xls', 'files/xlsx/*.xlsx', 'files/csv/*.csv'
+        ]
+    }
 )

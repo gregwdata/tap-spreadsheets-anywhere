@@ -120,8 +120,9 @@ def get_matching_objects(table_spec, modified_since=None):
     elif protocol == 'sharepoint':
         # download files
         if download_files_from_sharepoint(bucket, table_spec['sharepoint_credentials']):
-            target_objects = list_files_in_local_bucket(bucket, table_spec.get('search_prefix'))
-            table_spec['path'] = 'file://' + bucket # change sharepoint protocol to file
+            abs_bucket = get_abs_path(bucket)
+            target_objects = list_files_in_local_bucket(abs_bucket, table_spec.get('search_prefix'))
+            table_spec['path'] = 'file://' + abs_bucket # change sharepoint protocol to file
     else:
         raise ValueError("Protocol {} not yet supported. Pull Requests are welcome!")
 
@@ -370,15 +371,16 @@ def download_files_from_sharepoint(bucket, sharepoint_credentials):
     with SharePointClient(sharepoint_credentials) as client:
         site_name = sharepoint_credentials['site_name']
         document_library = sharepoint_credentials['document_library']
-        file_name = sharepoint_credentials['file_name']
+        file_path = sharepoint_credentials['file_path']
         site_id = client.get_site_id(site_name)
         drive_id = client.get_drive_id(site_id, document_library)
-        drive_download_url = client.get_drive_download_url(site_id, drive_id, file_name)
+        drive_download_url = client.get_drive_download_url_by_path(drive_id, file_path)
 
-        filePath = bucket + '/' + file_name
+        file_name = os.path.basename(file_path)
+        local_file_path = bucket + '/' + file_name
         if drive_download_url:
-            download_file(drive_download_url, filename=filePath)
-            LOGGER.info("'{}' file is downloaded from '{}' site and '{}' document library into '{}'".format(file_name, site_name, document_library, filePath))
+            client.download_file(drive_download_url, filename=local_file_path)
+            LOGGER.info("'{}' file is downloaded from '{}' site and '{}' document library into '{}'".format(file_name, site_name, document_library, local_file_path))
             return True
         else:
             return False

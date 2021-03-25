@@ -36,11 +36,9 @@ CONFIG_CONTRACT = Schema({
             Required('tenant_name'): str,
             Required('client_id'): str,
             Required('client_secret'): str,
-            Required('grant_type'): str,
-            Required('scope'): str,
             Required('site_name'): str,
             Required('document_library'): str,
-            Required('file_name'): str
+            Required('file_path'): str
         }
     }]
 })
