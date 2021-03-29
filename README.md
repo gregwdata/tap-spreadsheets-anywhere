@@ -14,6 +14,7 @@ This is a [Singer](https://singer.io) tap that reads data from spreadsheet files
 - WebHDFS
 - GCS
 - Azure Blob Storage
+- Sharepoint drive (sharepoint://files/csv) or (sharepoint://files/xlsx)
 
 Multiple individual files with the same schema can be configured & ingested into the same "Table" for processing.
 
@@ -84,6 +85,40 @@ The configuration is also captured in [tables_config_util.py](tap_spreadsheets_a
             "format": "excel", 
             // you must specify the worksheet name to pull from in your xls(x) file.
             "worksheet_name": "Names"
+        },
+        {
+            "path": "sharepoint://files/csv",
+            "sharepoint_credentials": {
+                "tenant_name": "rfalab.com",
+                "client_id": "******************************",
+                "client_secret": "******************************",
+                "site_name": "EDW References",
+                "document_library": "Documents",
+                "file_path": "EDW Reference Files/REF_BLDG_ASSET_TYPE.csv"
+            },
+            "name": "REF_BLDG_ASSET_TYPE",
+            "pattern": ".*REF_BLDG_ASSET_TYPE*\\.csv",
+            "start_date": "2017-05-01T00:00:00Z",
+            "key_properties": ["\u00efbldgid"],
+            "format": "csv",
+            "worksheet_name": "REF_BLDG_ASSET_TYPE"
+        },
+        {
+            "path": "sharepoint://files/xlsx",
+            "sharepoint_credentials": {
+                "tenant_name": "rfalab.com",
+                "client_id": "*******************************",
+                "client_secret": "*******************************",
+                "site_name": "EDW References",
+                "document_library": "Documents",
+                "file_path": "Office Leasing Reference Files/NWO Asset Information Worksheet.xlsx"
+            },
+            "name": "NWO Asset Information Worksheet.xlsx",
+            "pattern": ".*NWO Asset Information Worksheet*\\.xlsx",
+            "start_date": "2017-05-01T00:00:00Z",
+            "key_properties": ["general_building_name"],
+            "format": "excel",
+            "worksheet_name": "query"
         }
     ]
 }
