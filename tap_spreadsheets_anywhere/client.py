@@ -96,7 +96,7 @@ class SharePointClient:
         self.headers = {"content-type": "application/json", "Authorization": "Bearer " + self.access_token}
 
     def get_site_id(self, siteName):
-        url = self.base_url + "/sites"
+        url = self.base_url + "/sites?$select=siteCollection,webUrl,id,name"
         values = []
         success = False
         while not success:
