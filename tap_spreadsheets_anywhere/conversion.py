@@ -1,6 +1,7 @@
 import dateutil
 import pytz
 import logging
+from datetime import datetime
 
 LOGGER = logging.getLogger(__name__)
 
@@ -34,6 +35,25 @@ def coerce(datum,declared_types):
     return coerced
 
 
+def float_hour_to_time(fh: float) -> tuple:
+    """
+    Converts time coming in float to date-time
+    :param fh: float hours
+    :type fh: float
+    :return: int values of hours, minutes and seconds wrapped to tuple
+    :rtype: tuple
+    """
+
+    hours, hourSeconds = divmod(fh, 1)
+    minutes, seconds = divmod(hourSeconds * 60, 1)
+    return (
+        int(hours),
+        int(minutes),
+        int(seconds * 60)
+    )
+
+
+
 def convert(datum, desired_type=None):
     """
     Returns tuple of (converted_data_point, json_schema_type,).
@@ -60,14 +80,18 @@ def convert(datum, desired_type=None):
     if desired_type == 'date-time':
         try:
             to_return = dateutil.parser.parse(datum)
-
-            if (to_return.tzinfo is None or
-                    to_return.tzinfo.utcoffset(to_return) is None):
+            if (to_return.tzinfo is None or to_return.tzinfo.utcoffset(to_return) is None):
                 to_return = to_return.replace(tzinfo=pytz.utc)
 
             return to_return.isoformat(), 'date-time',
         except (ValueError, TypeError):
-            pass
+            if isinstance(datum, float):
+                dt = datetime.fromordinal(datetime(1900, 1, 1).toordinal() + int(datum) - 2)
+                hour, minute, second = float_hour_to_time(float(datum) % 1)
+                to_return = dt.replace(hour=hour, minute=minute, second=second)
+                if (to_return.tzinfo is None or to_return.tzinfo.utcoffset(to_return) is None):
+                    to_return = to_return.replace(tzinfo=pytz.utc)
+                return to_return.isoformat(), 'date-time',
 
     return str(datum), 'string',
 
