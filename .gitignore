@@ -107,3 +107,7 @@ rsa-key
 tags
 singer-check-tap-data
 state.json
+
+
+# files
+tap_spreadsheets_anywhere/files/
