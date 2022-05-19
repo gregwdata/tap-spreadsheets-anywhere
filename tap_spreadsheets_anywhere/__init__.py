@@ -32,9 +32,21 @@ def merge_dicts(first, second):
 
     return to_return
 
+def override_datetime_type(schema_overrides):
+    for col_name, col_type in schema_overrides.items():
+        if isinstance(col_type['type'], list) and 'date-time' in col_type['type']:
+            col_type['type'] = ['null', 'string']
+            col_type['format'] = 'date-time'
+            schema_overrides[col_name] = col_type
+        elif isinstance(col_type['type'], str) and 'date-time' == col_type['type']:
+            col_type['type'] = 'string'
+            col_type['format'] = 'date-time'
+            schema_overrides[col_name] = col_type
+    return schema_overrides
 
 def override_schema_with_config(inferred_schema, table_spec):
-    override_schema = {'properties': table_spec.get('schema_overrides', {}),
+    schema_overrides = override_datetime_type(table_spec.get('schema_overrides', {}))
+    override_schema = {'properties': schema_overrides,
                        'selected': table_spec.get('selected', True)}
     # Note that we directly support setting selected through config so that this tap is useful outside Meltano
     return merge_dicts(inferred_schema, override_schema)
