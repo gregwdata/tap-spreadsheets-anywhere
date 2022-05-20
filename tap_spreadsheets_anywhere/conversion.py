@@ -5,19 +5,32 @@ from datetime import datetime
 
 LOGGER = logging.getLogger(__name__)
 
+def validate_remove_fields(records, schema):
+    validated_records = {}
+    for key, val in records.items():
+        if key in schema['properties']:
+            validated_records[key] = val
+    return validated_records
 
 def convert_row(row, schema):
     to_return = {}
     for key, value in row.items():
         if key in schema['properties']:
             field_schema = schema['properties'][key]
-            declared_types = field_schema.get('type', 'string')
+            format = field_schema.get('format', None)
+            if format == 'date-time':
+                declared_types = 'date-time'
+            else:
+                declared_types = field_schema.get('type', 'string')
+
         else:
             declared_types = ['string','null']
 
         LOGGER.debug('Converting {} value {} to {}'.format(key, value, declared_types))
         coerced = coerce(value, declared_types)
         to_return[key] = coerced
+
+    to_return = validate_remove_fields(to_return, schema)
 
     return to_return
 
@@ -156,10 +169,15 @@ def generate_schema(samples,prefer_number_vs_integer=False):
     to_return = {}
     counts = count_samples(samples)
 
+    outside_table = False
     for key, value in counts.items():
         datatype = pick_datatype(value,prefer_number_vs_integer)
         # if "survey_responses_count" == key:
         #     LOGGER.error(f"Key '{key}' held {value} and was typed as {datatype} with prefer_number_vs_integer={prefer_number_vs_integer}")
+
+        if key in [""] or outside_table is True:
+            outside_table = True
+            continue
 
         if datatype == 'date-time':
             to_return[key] = {
