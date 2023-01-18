@@ -16,8 +16,8 @@ class InvalidFormatError(Exception):
         return f'{self.name} could not be parsed: {self.message}'
 
 
-def get_streamreader(uri, universal_newlines=True,newline='',open_mode='r'):
-    streamreader = smart_open.open(uri, open_mode, newline=newline, errors='surrogateescape')
+def get_streamreader(uri, universal_newlines=True,newline='',open_mode='r',encoding=None,errors='surrogateescape'):
+    streamreader = smart_open.open(uri, open_mode, newline=newline, encoding=encoding, errors=errors)
     if not universal_newlines and isinstance(streamreader, StreamReader):
         return monkey_patch_streamreader(streamreader)
     return streamreader
@@ -105,7 +105,9 @@ def mp_readline(self, size=None, keepends=False):
 
 def get_row_iterator(table_spec, uri):
     universal_newlines = table_spec['universal_newlines'] if 'universal_newlines' in table_spec else True
-
+    encoding = table_spec['encoding'] if 'encoding' in table_spec else None
+    encoding_errors = table_spec['encoding_errors'] if 'encoding_errors' in table_spec else 'surrogateescape'
+        
     if 'format' not in table_spec or table_spec['format'] == 'detect':
         lowered_uri = uri.lower()
         if lowered_uri.endswith(".xls") or lowered_uri.endswith(".xlsx"):
@@ -116,7 +118,7 @@ def get_row_iterator(table_spec, uri):
             format = 'csv'
         else:
             # TODO: some protocols provide the ability to pull format (content-type) info & we could make use of that here
-            reader = get_streamreader(uri, universal_newlines=universal_newlines, open_mode='r')
+            reader = get_streamreader(uri, universal_newlines=universal_newlines, open_mode='r',encoding=encoding,errors=encoding_errors)
             buf = reader.read(10)
             reader.seek(0)
             if len(buf) > 0:
@@ -134,13 +136,13 @@ def get_row_iterator(table_spec, uri):
 
     try:
         if format == 'csv':
-            reader = get_streamreader(uri, universal_newlines=universal_newlines, open_mode='r')
+            reader = get_streamreader(uri, universal_newlines=universal_newlines, open_mode='r',encoding=encoding,errors=encoding_errors)
             return tap_spreadsheets_anywhere.csv_handler.get_row_iterator(table_spec, reader)
         elif format == 'excel':
-            reader = get_streamreader(uri, universal_newlines=universal_newlines,newline=None, open_mode='rb')
+            reader = get_streamreader(uri, universal_newlines=universal_newlines,newline=None, open_mode='rb',encoding=encoding,errors=encoding_errors)
             return tap_spreadsheets_anywhere.excel_handler.get_row_iterator(table_spec, reader)
         elif format == 'json':
-            reader = get_streamreader(uri, universal_newlines=universal_newlines, open_mode='r')
+            reader = get_streamreader(uri, universal_newlines=universal_newlines, open_mode='r',encoding=encoding,errors=encoding_errors)
             return tap_spreadsheets_anywhere.json_handler.get_row_iterator(table_spec, reader)
     except (ValueError,TypeError) as err:
         raise InvalidFormatError(uri,message=err)
