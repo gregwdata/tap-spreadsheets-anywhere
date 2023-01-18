@@ -17,7 +17,7 @@ class InvalidFormatError(Exception):
 
 
 def get_streamreader(uri, universal_newlines=True,newline='',open_mode='r',encoding=None,errors='surrogateescape'):
-    streamreader = smart_open.open(uri, open_mode, newline=newline, encoding=encoding, errors=errors)
+    streamreader = smart_open.open(uri, open_mode, newline=newline, encoding=encoding, errors=errors, buffering=0)
     if not universal_newlines and isinstance(streamreader, StreamReader):
         return monkey_patch_streamreader(streamreader)
     return streamreader
